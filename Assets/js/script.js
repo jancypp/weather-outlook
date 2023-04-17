@@ -6,6 +6,9 @@ submitButton.addEventListener("click", function (event) {
     event.preventDefault()
     var citySearch = document.querySelector("#city-search").value;
     fetchAPI(citySearch)
+    var previousSearch = JSON.parse(localStorage.getItem("weatherDashboard")) || [] // or operator
+    previousSearch.push(citySearch)
+    localStorage.setItem("weatherDashboard", JSON.stringify(previousSearch))
 });
 
 var weatherDetails = document.querySelectorAll(".card-text");
