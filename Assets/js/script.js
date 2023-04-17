@@ -1,6 +1,20 @@
 //psuedocode
 // I want to open a webpage and input the location so that I can see the weather forecast
 //-form iput for user and event listener for submit
+function displayLocalStorage (){
+    var displaySearchElement = document.getElementById("displaySearch")
+    displaySearchElement.innerHTML = ""
+    var previousSearch = JSON.parse(localStorage.getItem("weatherDashboard")) || []
+    for (let i = 0; i < previousSearch.length; i++) {
+        const element = document.createElement("button")
+        element.classList.add("btn")
+        element.classList.add("btn-secondary")
+        element.textContent = previousSearch[i];
+        displaySearchElement.append(element)
+    }  
+}
+
+displayLocalStorage()
 var submitButton = document.querySelector('.searchBtn');
 submitButton.addEventListener("click", function (event) {
     event.preventDefault()
@@ -9,6 +23,7 @@ submitButton.addEventListener("click", function (event) {
     var previousSearch = JSON.parse(localStorage.getItem("weatherDashboard")) || [] // or operator
     previousSearch.push(citySearch)
     localStorage.setItem("weatherDashboard", JSON.stringify(previousSearch))
+    displayLocalStorage()
 });
 
 var weatherDetails = document.querySelectorAll(".card-text");
@@ -62,6 +77,8 @@ var fetchAPI = function (cityName) {
                 })
         })
 }
+
+
 // fetchGeoCode("Denver")
 // var locationEl = //value input by the user
 // var latitudeEL = //value linked to the location chosen
