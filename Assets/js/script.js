@@ -9,9 +9,12 @@ function displayLocalStorage (){
         const element = document.createElement("button")
         element.classList.add("btn")
         element.classList.add("btn-secondary")
+        element.classList.add("searchHistory")
         element.textContent = previousSearch[i];
         displaySearchElement.append(element)
-    }  
+    }
+    var searchButtons = document.querySelectorAll(".searchHistory")
+    searchButtons.forEach((element) =>  element.addEventListener('click', weatherHistory))
 }
 
 displayLocalStorage()
@@ -77,7 +80,11 @@ var fetchAPI = function (cityName) {
                 })
         })
 }
-
+function weatherHistory (event){
+    event.preventDefault()
+    var city = event.target.textContent
+    fetchAPI(city)
+}
 
 // fetchGeoCode("Denver")
 // var locationEl = //value input by the user
